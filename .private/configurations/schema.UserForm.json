@@ -1,6 +1,6 @@
 { "data":
   { "$schema": "http://json-schema.org/draft-04/schema#"
-  , "id": "/medicare-app/service/_/UserForm/schema"
+  , "id": "/service/_/UserForm/schema"
   , "type": "object"
   , "title": "User Forms"
   ,  "properties":
