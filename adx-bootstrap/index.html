@@ -1,0 +1,170 @@
+<!-- adx-bootstrap: Admin X for Bootstrap -->
+<!doctype html>
+<html lang="en" ng-app="adxBsApp" ng-controller="AppCtrl as app">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="description" content=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+  <title ng-bind="(navTitle || 'Admin Dashboard') + ' | Anchor Diary'">Bootstrap Backend</title>
+
+  <base href="/adx-bootstrap/"/>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery.min.js"></script>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <!-- AngularJS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-sanitize.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+  <script src="assets/js/ng-storage.min.js"></script>
+  <script src="assets/js/angular-pnotify.min.js"></script>
+  <script src="assets/js/angular-object-to-formdata.min.js"></script>
+  <script src="assets/js/ng-infinite-scroll.min.js"></script>
+  <script src="assets/js/ng-password.min.js"></script>
+
+  <!-- pickadate -->
+  <script src="assets/js/pickadate/picker.min.js"></script>
+  <script src="assets/js/pickadate/picker.date.min.js"></script>
+
+  <!-- tinymce -->
+  <script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
+  <script src="assets/js/tx-tinymce.min.js"></script>
+
+  <!-- schema-form -->
+  <script src="assets/js/json-schema-form/tv4.min.js"></script>
+  <script src="assets/js/json-schema-form/ObjectPath.min.js"></script>
+  <script src="assets/js/json-schema-form/schema-form.min.js"></script>
+  <script src="assets/js/json-schema-form/bootstrap-decorator.min.js"></script>
+  <script src="assets/js/json-schema-form/bootstrap-pickadate.min.js"></script>
+  <script src="assets/js/json-schema-form/bootstrap-static.min.js"></script>
+  <script src="assets/js/json-schema-form/bootstrap-file-input.min.js"></script>
+  <script src="assets/js/json-schema-form/bootstrap-thumbnail.min.js"></script>
+  <script src="assets/js/json-schema-form/bootstrap-tinymce.min.js"></script>
+  <script src="assets/js/ace/bootstrap-ui-ace.min.js"></script>
+
+  <!-- app -->
+  <script src="assets/js/app.module.min.js"></script>
+  <script src="assets/js/app.routes.min.js"></script>
+  <script src="assets/js/app.controller.min.js"></script>
+  <script src="assets/js/user.controller.min.js"></script>
+  <script src="assets/js/dashboard.controller.min.js"></script>
+  <script src="assets/js/generic-model.controller.min.js"></script>
+
+  <link rel="stylesheet" href="assets/css/main.min.css"/>
+</head>
+
+<body ng-cloak>
+  <header ng-controller="UserCtrl as userCtx">
+    <nav id="navMain" class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#divMainMenuContent">
+            <i class="glyphicon glyphicon-menu-hamburger"></i>
+          </button>
+
+          <a class="navbar-brand" href="javascript:" ng-click="app.toggleSidenav(true)">
+            <i class="glyphicon glyphicon-menu-hamburger" ng-if="forms.length"></i>
+          </a>
+
+          <p class="navbar-text">{{navTitle || 'Admin Dashboard'}}</p>
+        </div>
+
+        <div id="divMainMenuContent" class="collapse navbar-collapse navbar-right">
+          <form class="navbar-form" ng-if="!userCtx.session" ng-submit="userCtx.login(userCtx.username, userCtx.password)">
+            <div class="form-group hidden-xs">
+              <i class="glyphicon glyphicon-user"></i>&nbsp;
+            </div>
+
+            <div class="form-group">
+              <input id="txtUid" type="text" name="username" class="form-control" placeholder="Username" ng-model="userCtx.username"/>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group">
+                <input id="txtPwd" type="password" name="password" class="form-control" placeholder="Password" ng-model="userCtx.password"/>
+
+                <span class="input-group-btn">
+                  <button class="btn btn-primary">
+                    <i class="glyphicon glyphicon-log-in"></i>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </form>
+
+          <ul class="nav navbar-nav" ng-if="userCtx.session">
+            <li class="dropdown">
+              <a href="javascript:" class="dropdown-toggle hidden-xs" data-toggle="dropdown" role="button">
+                {{userCtx.user.name}} <i class="caret"></i>
+              </a>
+
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="account">Account</a>
+                </li>
+
+                <li class="divider"></li>
+
+                <li>
+                  <a href="javascript:" ng-click="userCtx.logout()">
+                    <i class="glyphicon glyphicon-log-out"></i> Sign Out
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- sidenav -->
+    <nav id="navSide" class="navbar navbar-default navbar-fixed-left fade" ng-class="{ in: app.sidenavVisible }" ng-if="forms.length">
+      <nav class="navbar navbar-default navbar-static-top" style="margin-bottom: 0">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a href="javascript:" class="navbar-brand" ng-click="app.toggleSidenav(false)">
+              <i class="glyphicon glyphicon-remove"></i>
+            </a>
+
+            <p class="navbar-text">Main Menu</p>
+          </div>
+        </div>
+      </nav>
+
+      <ul class="nav navbar-nav" style="max-height: calc(100vh - 50px); overflow-y: auto;">
+        <li ng-class="{ active: app.$route.$$route.isHome }">
+          <a href=".">
+            Home
+          </a>
+        </li>
+
+        <li ng-repeat="item in forms" ng-class="{ active: app.$route.params.formId == item.uuid }">
+          <a ng-href="{{item.templateHref || ('g/' + item.uuid)}}">
+            {{item.title}}
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="secMain" style="position: relative;">
+    <ng-view></ng-view>
+  </section>
+
+  <footer class="hidden-xs">
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+      <div class="container">
+        <p class="navbar-text navbar-right">
+          <small>Copyright &copy; 2017 August Solutions Ltd. All rights reserved.</small>
+        </p>
+      </div>
+    </nav>
+  </footer>
+</body>
+</html>
