@@ -47,7 +47,9 @@ class UserForm extends abstraction\UuidModel {
     if ( empty($this->formSchema) ) {
       $module = 'models\\' . $this->module;
 
-      $this->formSchema = (new $module)->schema('form');
+      if ( class_exists($module) ) {
+        $this->formSchema = (new $module)->schema('form');
+      }
     }
 
     if ( isset($this->formSchema) ) {
