@@ -11,11 +11,16 @@ use core\Utility as util;
 
 use framework\exceptions\ResolverException;
 
+/**
+ * User forms in admin panel.
+ *
+ * error code: 1xxx
+ */
 class UserForm extends abstraction\UuidModel {
 
   public function find(array $filter = array()) {
     // note; only admin users can read others' form.
-    $r = @$this->__request;
+    $r = @$this->request();
     if ( !IsSuperUser::authenticate($r) ) {
       $filter['uuid'] = (array) @$r->user->forms;
       if ( !$filter['uuid'] ) {
@@ -70,7 +75,7 @@ class UserForm extends abstraction\UuidModel {
         $this->formSchema = $form;
       }
       else {
-        $errors[601] = 'Malformed JSON input.';
+        $errors[1001] = 'Malformed JSON input.';
       }
 
       unset($form, $this->formSchemaJson);
@@ -82,7 +87,7 @@ class UserForm extends abstraction\UuidModel {
         $this->searchSchema = $form;
       }
       else {
-        $errors[601] = 'Malformed JSON input.';
+        $errors[1001] = 'Malformed JSON input.';
       }
 
       unset($form, $this->searchSchemaJson);
