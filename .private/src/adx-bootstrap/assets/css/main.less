@@ -1,0 +1,124 @@
+/*! main.less: Main styles for Admin Dashboard X Bootstrap (adx-bootstrap) */
+
+@import "lib/easing.less";
+
+@import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
+@import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css";
+@import "pnotify.min.css";
+@import "spectrum.min.css";
+@import "pickadate/classic.min.css";
+@import "pickadate/classic.date.min.css";
+// @import url('bootstrap-additions.min.css');
+
+/* Global styles */
+
+html, body {
+  min-height: 100vh;
+}
+
+body {
+  padding: 70px 0 50px;
+}
+
+.navbar-fixed-left, .navbar-fixed-right {
+  border-radius: 0;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 1051;
+  min-width: 50px;
+  margin: 0;
+
+  .navbar-nav {
+    float: none;
+    margin: 0;
+
+    > li {
+      float: none;
+    }
+  }
+}
+
+.navbar-fixed-left {
+  left: 0;
+  border-width: 0 1px 0 0;
+}
+
+.navbar-fixed-right {
+  right: 0;
+  border-width: 0 0 0 1px;
+}
+
+.navbar-text {
+  cursor: default;
+}
+
+@media (max-width: 767px) {
+  #navMain {
+    .dropdown-menu {
+      display: block;
+      position: static;
+      float: none;
+      width: auto;
+      margin-top: 0;
+      background-color: transparent;
+      border: 0;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
+
+    .navbar-form {
+      border: 0;
+    }
+
+    .navbar-toggle {
+      border: 0;
+    }
+  }
+}
+
+/* Site styles */
+
+#modalSidenav {
+  background-color: rgba(0, 0, 0, .12);
+
+  &.fade {
+    display: block;
+    right: 100%;
+    transition: opacity .23s @easeOutQuart, right 0s .23s;
+
+    &.in {
+      right: 0;
+      transition: opacity .23s @easeOutQuart, right 0s 0s;
+    }
+  }
+}
+
+#navSide {
+  min-width: 230px;
+  transition: margin-left .23s @easeOutQuart 0s;
+  background-color: #333;
+  margin-left: -100%;
+
+  .fade.in & {
+    margin-left: 0;
+  }
+
+  .dropdown-header {
+    padding: 3px 15px;
+  }
+}
+
+.fade.in #navSide {
+  margin-left: 0;
+}
+
+#secMain {
+  min-height: 100%;
+}
+
+.form-inline .control-label + .form-control {
+  margin-left: .5em;
+}
+
+@import "json-schema-form.less";
