@@ -133,7 +133,7 @@ function UserController($scope, $http, $timeout, $localStorage, $pnotify) {
   $scope.$root.$on('session.ensure', doEnsure);
 
   function doLogin(username, password) {
-    $http.post('../service/sessions/validate/', { username: username, password: password })
+    $http.post('../service/sessions/validate', { username: username, password: password })
       .then(onLogin, noLogin);
 
     function onLogin(res) {
@@ -175,7 +175,7 @@ function UserController($scope, $http, $timeout, $localStorage, $pnotify) {
   function doEnsure() {
     if ( $localStorage.session ) {
       if ( new Date($localStorage.session.expires).getTime() > Date.now() ) {
-        $http.get('../service/sessions/ensure/', { headers: { Authorization: 'Session ' + $localStorage.session.sid } })
+        $http.get('../service/sessions/ensure', { headers: { Authorization: 'Session ' + $localStorage.session.sid } })
           .then(onEnsure, noEnsure);
       }
       else {
