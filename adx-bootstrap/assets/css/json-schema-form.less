@@ -1,0 +1,40 @@
+// json-schema-form.less: json-schema-form specific styles.
+
+.schema-form-array {
+  & > .list-group {
+    &:not(:last-child) {
+      margin-bottom: 0;
+    }
+
+    & > .list-group-item {
+      padding-right: 2.4em;
+
+      & > button:first-child {
+        position: absolute;
+        top: .7em;
+        right: .4em;
+        z-index: 20;
+      }
+    }
+  }
+
+  .form-group:last-child {
+    // margin-bottom: 0;
+  }
+}
+
+.help-block:empty {
+  margin: 0;
+}
+
+.ace_editor {
+  min-height: 20em;
+  box-shadow: 1px 1px 4px #999;
+  border-radius: 4px;
+}
+
+.mce-tinymce, .mce-window {
+  box-shadow: 1px 1px 4px #999;
+  border-radius: 4px;
+  overflow: hidden;
+}
