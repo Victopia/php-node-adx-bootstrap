@@ -1,3 +1,5 @@
+@menu-width: 8.8rem;
+
 @media (min-width: 768px) {
   #modalSidenav.fade {
     opacity: 1;
@@ -7,24 +9,47 @@
     margin-left: 0;
   }
 
+  body {
+    // .navbar-brand height
+    padding-top: 75px;
+  }
+
   #navSide {
     min-width: auto !important;
-    max-width: 100px;
+    max-width: @menu-width;
+
+    .navbar-brand {
+      float: none;
+      min-height: 75px;
+      padding-left: 0;
+      padding-right: 0;
+      margin: 0;
+
+      img {
+        margin: auto;
+      }
+    }
   }
 
-  .navbar .navbar-nav > li > a > .glyphicon.item-icon {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 2.2rem;
+  body.has-forms {
+    #navMain, #secMain, footer {
+      padding-left: @menu-width;
+    }
   }
 
-  #navMain, #secMain, footer {
-    padding-left: 100px;
-  }
-
-  .navbar .navbar-nav > li > a {
+  #navSide .navbar-nav > li > a {
     text-align: center;
     font-size: 1rem;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-transform: uppercase;
+    line-height: 1;
+
+    & > .glyphicon {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 2rem;
+    }
   }
 
   .navbar-text {
@@ -32,33 +57,50 @@
   }
 }
 
-.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .open > a {
-  background-image: none;
-  background-color: #524d49;
-  color: #f7f3eb;
+@media (max-width: 767px) {
+  #navSide .navbar-nav > li > a .glyphicon {
+    margin-right: .2em;
+  }
+
+  body {
+    padding-top: 55px;
+  }
 }
 
-.navbar .navbar-nav > li > a {
-  color: #aaa6a0;
+#navSide {
+  .navbar {
+    margin-bottom: 0;
+  }
+
+  .navbar-nav {
+    border-color: #373330;
+
+    & > .active > a,
+    & > .open > a {
+      background-image: none;
+      background-color: #524d49;
+      color: #f7f3eb;
+    }
+
+    & > li > a {
+      color: #aaa6a0;
+
+      &:focus, &:hover {
+        background-color: #4a4542;
+        color: #f7f3eb;
+      }
+    }
+
+    & > .active > a {
+      &, &:focus, &:hover {
+        background-color: #4a4542;
+        color: #f7f3eb;
+      }
+    }
+  }
 }
 
-.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:focus, .navbar-inverse .navbar-nav > .active > a:hover {
-  background-color: #4a4542;
-  color: #f7f3eb;
-}
-
-.navbar-inverse .navbar-nav > li > a:focus, .navbar-inverse .navbar-nav > li > a:hover {
-  background-color: #4a4542;
-  color: #f7f3eb;
-}
-
-.navbar-inverse {
-  background-color: #373330;
-  background-image: none;
-  border-color: #373330;
-}
-
-.navbar-default {
+#navMain {
   color: #41362f;
   background-image: none;
   box-shadow: none;
