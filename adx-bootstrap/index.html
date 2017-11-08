@@ -21,10 +21,14 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular-sanitize.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular-messages.min.js"></script>
   <script src="assets/js/ng-storage.min.js"></script>
-  <script src="assets/js/angular-pnotify.min.js"></script>
+  <script src="assets/js/angular-bind-html-compile.min.js"></script>
   <script src="assets/js/angular-object-to-formdata.min.js"></script>
   <script src="assets/js/ng-infinite-scroll.min.js"></script>
   <script src="assets/js/ng-password.min.js"></script>
+
+  <!-- pnotify -->
+  <script src="assets/js/pnotify.min.js"></script>
+  <script src="assets/js/angular-pnotify.min.js"></script>
 
   <!-- pickadate -->
   <script src="assets/js/pickadate/picker.min.js"></script>
@@ -64,7 +68,7 @@
   <link rel="stylesheet" href="assets/css/main.min.css"/>
 </head>
 
-<body ng-cloak>
+<body ng-cloak ng-class="{ 'has-forms': forms.length }">
   <header ng-controller="UserCtrl as userCtx">
     <nav id="navMain" class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid">
@@ -73,7 +77,7 @@
             <i class="glyphicon glyphicon-menu-hamburger"></i>
           </button>
 
-          <a class="navbar-brand" href="javascript:" ng-click="app.toggleSidenav(true)">
+          <a class="navbar-brand visible-xs" href="javascript:" ng-click="app.toggleSidenav(true)">
             <i class="glyphicon glyphicon-menu-hamburger" ng-if="forms.length"></i>
           </a>
 
@@ -129,36 +133,44 @@
     </nav>
 
     <!-- sidenav -->
-    <nav id="navSide" class="navbar navbar-default navbar-fixed-left fade" ng-class="{ in: app.sidenavVisible }" ng-if="forms.length">
-      <nav class="navbar navbar-default navbar-static-top" style="margin-bottom: 0">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a href="javascript:" class="navbar-brand" ng-click="app.toggleSidenav(false)">
-              <i class="glyphicon glyphicon-remove"></i>
-            </a>
+    <div class="modal fade" id="modalSidenav" ng-class="{ in: app.sidenavVisible }" ng-click="app.toggleSidenav(false, $event)" ng-if="forms.length">
+      <nav id="navSide" class="navbar navbar-inverse navbar-fixed-left">
+        <nav class="navbar navbar-inverse navbar-static-top">
+          <div class="container-fluid">
+            <div class="navbar-brand hidden-xs">
+              <i class="glyphicon glyphicon-home"></i>
+            </div>
 
-            <p class="navbar-text">Main Menu</p>
+            <div class="navbar-header visible-xs">
+              <a href="javascript:" class="navbar-brand" ng-click="app.toggleSidenav(false)">
+                <i class="glyphicon glyphicon-remove"></i>
+              </a>
+
+              <p class="navbar-text">Main Menu</p>
+            </div>
           </div>
-        </div>
+        </nav>
+
+        <ul class="nav navbar-nav" style="max-height: calc(100vh - 50px); overflow-y: auto;">
+          <li ng-class="{ active: app.$route.$$route.isHome }">
+            <a href=".">
+              <i class="glyphicon glyphicon-apple"></i>
+              Home
+            </a>
+          </li>
+
+          <li ng-repeat="item in forms" ng-class="{ active: app.$route.params.formId == item.uuid }">
+            <a ng-href="{{item.templateHref || ('g/' + item.uuid)}}">
+              <i class="glyphicon glyphicon-{{ item.icon || 'stop' }}"></i>
+              {{item.title}}
+            </a>
+          </li>
+        </ul>
       </nav>
-
-      <ul class="nav navbar-nav" style="max-height: calc(100vh - 50px); overflow-y: auto;">
-        <li ng-class="{ active: app.$route.$$route.isHome }">
-          <a href=".">
-            Home
-          </a>
-        </li>
-
-        <li ng-repeat="item in forms" ng-class="{ active: app.$route.params.formId == item.uuid }">
-          <a ng-href="{{item.templateHref || ('g/' + item.uuid)}}">
-            {{item.title}}
-          </a>
-        </li>
-      </ul>
-    </nav>
+    </div>
   </header>
 
-  <section id="secMain" style="position: relative;">
+  <section id="secMain">
     <ng-view></ng-view>
   </section>
 

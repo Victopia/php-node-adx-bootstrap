@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <div ng-if="$ctrl.userForm.searchSchema"
        sf-schema="{'type':'object','properties':{'':0}}"
        sf-form="$ctrl.userForm.searchSchema"
